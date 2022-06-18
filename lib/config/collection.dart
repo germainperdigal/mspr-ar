@@ -1,4 +1,4 @@
-/** Models collection */
+/// Models collection
 const modelsCollection = {
   'monkey': 'monkey.dae',
   'snake': 'snake.dae',

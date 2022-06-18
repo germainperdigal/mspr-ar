@@ -5,23 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 import 'package:arkit_plugin/arkit_plugin.dart';
 
-/** Scan view */
+/// Scan view
 class ScanView extends StatelessWidget {
   late ARKitController arkitController;
   Timer? timer;
   bool anchorWasFound = false;
 
-  /** Clean frame */
+  /// Clean frame
   cleanFrame(ARKitController frame, String? nodeId) {
     if (nodeId != null) {
       frame.remove(nodeId);
     }
   }
 
-  /** Build */
+  /// Build
   @override
   Widget build(BuildContext context) {
     var currentObject = null;
+
     return Scaffold(
         body: ARKitSceneView(
           detectionImagesGroupName: 'AR Resources',
@@ -33,13 +34,13 @@ class ScanView extends StatelessWidget {
                 var objectUrl = modelsCollection[anchor.referenceImageName ?? 'monkey'] ?? 'monkey.dae';
                 final node = ARKitReferenceNode(
                     name: objectUrl,
-                    url: 'models.scnassets/'+objectUrl,
+                    url: 'models.scnassets/$objectUrl',
                     position: vector.Vector3(
                       anchor.transform.getColumn(3).x,
                       anchor.transform.getColumn(3).y,
                       anchor.transform.getColumn(3).z,
                     ),
-                    scale: vector.Vector3.all(0.3)
+                    scale: vector.Vector3.all(0.1)
                 );
                 c.add(node);
                 currentObject = objectUrl;

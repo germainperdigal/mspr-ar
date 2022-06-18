@@ -1,6 +1,8 @@
 import 'package:app_mspr/models/user.dart';
+import 'package:app_mspr/views/scanView.dart';
 import 'package:flutter/material.dart';
 
+/// Register view
 class RegisterView extends StatelessWidget {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -8,7 +10,14 @@ class RegisterView extends StatelessWidget {
   TextEditingController rePasswordController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  /** Build */
+  /// Handle error
+  handleError(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Merci de remplir tous les champs.'), backgroundColor: Colors.red)
+    );
+  }
+
+  /// Build
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -101,34 +110,28 @@ class RegisterView extends StatelessWidget {
                         RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email)
                         && password == rePassword
                     ) {
-                      print(new User(
+                      print(User(
                           firstNameController.text,
                           lastNameController.text,
                           emailController.text,
                           passwordController.text
                       ));
+                    } else if(password != '' || rePassword != '' || email != '' || lastName != '' || firstName != '') {
+                      handleError(context, 'Merci de remplir tous les champs.');
                     } else if(RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email) == false) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Merci de vérifier votre adresse e-mail.'), backgroundColor: Colors.red)
-                      );
+                      handleError(context, 'Merci de vérifier votre adresse e-mail.');
                     } else if(password != rePassword) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Vos mots de passe ne correspondent pas.'), backgroundColor: Colors.red)
-                      );
+                      handleError(context, 'Vos mots de passe ne correspondent pas.');
                       passwordController.text = '';
                       rePasswordController.text = '';
-                    } else if(password != '' || rePassword != '' || email != '' || lastName != '' || firstName != '') {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Merci de remplir tous les champs.'), backgroundColor: Colors.red)
-                      );
                     }
 
-                    /*Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
                       return Scaffold(
                         appBar: AppBar(title: const Text('Cerealis')),
                         body: ScanView(),
                       );
-                    }));*/
+                    }));
                   },
                 )
             ),
