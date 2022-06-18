@@ -1,0 +1,17 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "resources" : [
+    {
+      "filename" : "monkey.arreferenceimage"
+    },
+    {
+      "filename" : "rhino.arreferenceimage"
+    },
+    {
+      "filename" : "snake.arreferenceimage"
+    }
+  ]
+}
