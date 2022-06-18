@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "116789126327",
+    "project_id": "cerealis-2bef9",
+    "storage_bucket": "cerealis-2bef9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116789126327:android:020217c71003c42f901932",
+        "android_client_info": {
+          "package_name": "com.gperdigal.mspr.app_mspr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116789126327-pun65p1djprk8ltqsrthutkr0lbp7eh3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTbZzw9qvl7cOsJ3-8Ck0iX3tuHysLSOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116789126327-pun65p1djprk8ltqsrthutkr0lbp7eh3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "116789126327-enlhrbh2eomfgphf7e3opl9k17dea4dv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gperdigal.mspr.appMspr"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
