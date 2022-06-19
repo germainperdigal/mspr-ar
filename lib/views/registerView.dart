@@ -1,5 +1,7 @@
 import 'package:app_mspr/models/user.dart';
 import 'package:app_mspr/views/scanView.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
 
 /// Register view
@@ -13,7 +15,14 @@ class RegisterView extends StatelessWidget {
   /// Handle error
   handleError(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Merci de remplir tous les champs.'), backgroundColor: Colors.red)
+        SnackBar(content: Text(text), backgroundColor: Colors.red)
+    );
+  }
+
+  /// On success
+  onSuccess(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Bienvenue sur Céréalis.'), backgroundColor: Colors.green)
     );
   }
 
@@ -72,9 +81,8 @@ class RegisterView extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: const EdgeInsets.all(10),
               child: TextField(
-                obscureText: true,
                 controller: passwordController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -83,9 +91,8 @@ class RegisterView extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: const EdgeInsets.all(10),
               child: TextField(
-                obscureText: true,
                 controller: rePasswordController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -110,20 +117,28 @@ class RegisterView extends StatelessWidget {
                         RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email)
                         && password == rePassword
                     ) {
-                      print(User(
+                      var user = User(
                           firstNameController.text,
                           lastNameController.text,
                           emailController.text,
                           passwordController.text
-                      ));
+                      );
+                      FirebaseFirestore.instance.collection('users').doc().set({
+                        "firstName": user.fName,
+                        "lastName": user.lName,
+                        "email": user.email,
+                        "password": Crypt.sha256(user.password).toString()
+                      }).then((doc) {
+                        onSuccess(context, 'Bienvenue sur Céréalis');
+                      }).catchError((error) {
+                        handleError(context, error.toString());
+                      });
                     } else if(password != '' || rePassword != '' || email != '' || lastName != '' || firstName != '') {
                       handleError(context, 'Merci de remplir tous les champs.');
                     } else if(RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email) == false) {
                       handleError(context, 'Merci de vérifier votre adresse e-mail.');
                     } else if(password != rePassword) {
                       handleError(context, 'Vos mots de passe ne correspondent pas.');
-                      passwordController.text = '';
-                      rePasswordController.text = '';
                     }
 
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
