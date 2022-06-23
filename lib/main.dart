@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-      options: const FirebaseOptions(apiKey: 'AIzaSyC6-Wxh7pxzs8x-1V2HIk8ceA1aNf1FYwQ', appId: "1:116789126327:web:e33e739557a25864901932", messagingSenderId: "116789126327", projectId: "cerealis-2bef9")
+      // options: const FirebaseOptions(apiKey: 'AIzaSyC6-Wxh7pxzs8x-1V2HIk8ceA1aNf1FYwQ', appId: "1:116789126327:web:e33e739557a25864901932", messagingSenderId: "116789126327", projectId: "cerealis-2bef9")
   );
   runApp(
       MaterialApp(home: BaseApp())
